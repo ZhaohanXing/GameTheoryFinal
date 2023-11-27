@@ -4,12 +4,12 @@ from Model import *
 
 num_agents = 1000
 # v
-satisfaction = 1
+satisfaction = 0.5
 # b
-disutility = 2
+disutility = 1
 iteration = 10
 info_uncertainty = random.uniform(0, 1)
-G = nx.erdos_renyi_graph(num_agents, 0.05)
+G = nx.erdos_renyi_graph(num_agents, 0.01)
 # agents = [Agent(i, G) for i in range(num_agents)]
 
 mapping = {i: Agent(i, G) for i in range(num_agents)}
@@ -26,7 +26,7 @@ utility_no_intervention = []
 utility_intervention_threshold = []
 utility_intervention_givenvalue = []
 
-simu_time = 1000
+simu_time = 30
 for _ in range(simu_time):
     engagement_intervention_threshold_onesimu = []
     engagement_intervention_givenvalue_onesimu = []
@@ -36,7 +36,7 @@ for _ in range(simu_time):
     utility_intervention_givenvalue_onesimu = []
     for i in range(iteration):
         # print(f"Round {round + 1}")
-        info = infomation_and_platform(satisfaction, disutility, info_uncertainty)
+        info = infomation_and_platform(satisfaction, disutility, random.uniform(0, 1))
         engage_user_no_intervention = 0
         engage_user_intervention_threshold = 0
         engage_user_intervention_givenvalue = 0
@@ -82,6 +82,7 @@ for _ in range(simu_time):
     utility_no_intervention.append(utility_no_intervention_onesimu)
     utility_intervention_threshold.append(utility_intervention_threshold_onesimu)
     utility_intervention_givenvalue.append(utility_intervention_givenvalue_onesimu)
+    print(f"simutime {_} finish")
 
 engagement_no_intervention = np.array(engagement_no_intervention)
 engagement_intervention_threshold= np.array(engagement_intervention_threshold)
